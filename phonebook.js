@@ -41,6 +41,11 @@ app.get('/info', (req, res) => {
     res.send("Phonebook has info for " + entryNo + " people. " + Date().toLocaleString() )
 })
 
+app.get('/api/persons/:id', (req, res) => {
+  const id = Number(req.params.id);
+  const person = persons.find(pers => pers.id === id)
+  return person ? res.send(person) : res.status(404).end()
+})
 
 
 const PORT = 3001;
