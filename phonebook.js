@@ -33,6 +33,15 @@ app.get('/', (req, res) => {
 app.get('/api/persons', (req, res) => {
     res.send(persons)
 })
+  
+  let entryNo = 0;
+  persons.length > 0 ? persons.map(per => entryNo++) : 0
+
+app.get('/info', (req, res) => {
+    res.send("Phonebook has info for " + entryNo + " people. " + Date().toLocaleString() )
+})
+
+
 
 const PORT = 3001;
 app.listen(PORT, () => {
