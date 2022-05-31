@@ -59,10 +59,9 @@ const generateId = () => {
 }
 
 
-app.post('/api/persons', (req, res) => {
+app.post('/api/persons', (req, res, next) => {
   const body = req.body
   let newContact = {}
-
 
   !body 
   ?
@@ -72,8 +71,8 @@ app.post('/api/persons', (req, res) => {
   :
    newContact = {
     id: generateId(),
-    name: body.name,
-    number: body.number
+    name: body.name === '' || null ? next('name field is empty') : body.name,
+    number: body.number === '' || null ? next('name is empty') : body.number
     }
 
   persons = persons.concat(newContact)
