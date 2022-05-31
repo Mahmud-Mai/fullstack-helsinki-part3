@@ -1,7 +1,6 @@
 const express = require("express");
+const morgan = require('morgan')
 const app = express();
-
-app.use(express.json())
 
 let persons = [
     { 
@@ -24,7 +23,23 @@ let persons = [
       "name": "Mary Poppendieck", 
       "number": "39-23-6423122"
     }
-]
+  ]
+  
+  //  Attempt to implement Middleware failed
+
+  // const requestLogger = (request, response, next) => {
+  //       console.log('Method: ' request.method)
+  //     console.log('Path: ' request.path)
+  //     console.log('body: ' request.body)
+  //     console.log('---')
+  //     next()
+  //   }
+  // app.use(requestLogger)
+
+app.use(express.json())
+app.use(morgan('tiny'))
+
+
 
 app.get('/', (req, res) => {
     return res.send('<h1>My phonebook server is working!</h1>')
@@ -80,6 +95,14 @@ app.post('/api/persons', (req, res, next) => {
 
 })
 
+
+//  Attempt to implement Middleware failed
+
+// const unknownEndpoint = (request, response) => {
+//   response.status(404).send({ error: 'unknown endpoint' })
+// }
+
+// app.use(unknownEndpoint)
 
 const PORT = 3001;
 app.listen(PORT, () => {
